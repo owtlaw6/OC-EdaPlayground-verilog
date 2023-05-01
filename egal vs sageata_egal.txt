@@ -1,0 +1,11 @@
+nu asta e problema
+= combinational
+<= secvential
+
+<= is a nonblocking assignment. It is used to describe sequential logic, like in your code example. Refer to IEEE Std 1800-2012, section 10.4.2 "Nonblocking procedural assignments".
+
+= is for blocking assignments. It is used to describe combinational logic.
+
+= is blocking statement. In an always block, the line of code will be executed only after it's previous line has executed. Hence, they happens one after the other, just like combinatoral logics in loop.
+
+<= is non-blocking in nature. This means that in an always block, every line will be executed in parallel. Hence leading to implementation of sequential elements.

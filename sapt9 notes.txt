@@ -1,0 +1,57 @@
+
+tema terminam ce a ramas
+mux 8_1 care fol 4_1 sa-si faca treaba
+2 sau mai multe de cate aveti nevoie
+facem implementare secventiala cu 4_1 nu cobinational ca acum
+
+
+// Code your design here
+module mux_4_1(
+  input [3:0]x,
+  input [1:0]c,
+  output o
+);
+  assign o = c[1] ? (c[0] ? x[3] : x[2]) : (c[0] ? x[1] : x[0]);
+  
+endmodule
+
+module mux_8_1(
+  input [7:0]x,
+  input [2:0]c,
+  output o
+);
+  wire w1;
+  wire w2;
+  mux_4_1 m1 (.x(x[7:4]), .c(c[1:0]), .o(w1));
+  mux_4_1 m2 (.x(x[3:0]), .c(c[1:0]), .o(w2));
+  
+  assign o = c[2] ? w1 : w2;
+endmodule
+
+
+// Code your testbench here
+// or browse Examples
+
+module mux_8_1_tb;
+  reg [7:0] x;
+  reg [2:0] c;
+  wire o;
+  
+  mux_8_1 m81 (.x(x), .c(c), .o(o));
+  
+  initial begin
+    $dumpfile("dump.vcd");
+	$dumpvars(0);
+  	x <= 1'b0;
+    c <= 1'b0;
+    #10 x <= 8'b10101101;
+    #10 c <= 1'b1;
+    #10 c <= 2'b10;
+    #10 c <= 2'b11;
+    #10 c <= 3'b100;
+    #10 c <= 3'b101;
+    #10 c <= 3'b110;
+    #10 c <= 3'b111;
+    #10 $finish;
+  end
+endmodule

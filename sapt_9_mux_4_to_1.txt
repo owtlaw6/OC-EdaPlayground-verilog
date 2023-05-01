@@ -1,0 +1,32 @@
+// Code your design here
+module mux_4_1(
+  input [3:0]x,
+  input [1:0]c,
+  output o
+);
+  assign o = c[1] ? (c[0] ? x[3] : x[2]) : (c[0] ? x[1] : x[0]);
+  
+endmodule
+
+// Code your testbench here
+// or browse Examples
+
+module mux_4_1_tb;
+  reg [3:0] x;
+  reg [1:0] c;
+  wire o;
+  
+  mux_4_1 m41 (.x(x), .c(c), .o(o));
+  
+  initial begin
+    $dumpfile("dump.vcd");
+	$dumpvars(0);
+  	x <= 1'b0;
+    c <= 1'b0;
+    #10 x <= 4'b0110;
+    #10 c <= 1'b1;
+    #10 c <= 2'b10;
+    #10 c <= 2'b11;
+    #10 $finish;
+  end
+endmodule

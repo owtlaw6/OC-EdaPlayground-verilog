@@ -1,0 +1,48 @@
+module dff_ar(
+input d, clk, rst_b,
+output reg q
+);
+always @ (posedge clk, negedge rst_b) begin
+if (!rst_b) q <= 1'b0;
+ else q <= d;
+end
+
+endmodule
+
+module ripple_counter(
+  input clk, rst_b,
+  output [3:0]out
+);
+
+  wire q0;
+  wire q1;
+  wire q2;
+  wire q3;
+  
+  dff_ar dff0(.d(~q0), .clk(clk), .rst_b(rst_b), .q(q0));
+  dff_ar dff1(.d(~q1), .clk(q0), .rst_b(rst_b), .q(q1));
+  dff_ar dff2(.d(~q2), .clk(q1), .rst_b(rst_b), .q(q2));
+  dff_ar dff3(.d(~q3), .clk(q2), .rst_b(rst_b), .q(q3));
+  
+  assign out = {~q3, ~q2, ~q1, ~q0};
+endmodule
+
+module ripple_counter_tb;
+  reg clk;
+  reg rst_b;
+  wire[3:0] out;
+  
+  ripple_counter rc0(.clk(clk), .rst_b(rst_b), .out(out));
+  
+  always begin
+  	#5 clk = ~clk;
+  end
+initial begin
+  	$dumpfile("dump.vcd");
+	$dumpvars(0);
+  	clk <= 1'b1;
+  	rst_b <= 1'b0;
+	#5 rst_b <= 1'b1;
+  	#200 $finish;
+end
+endmodule

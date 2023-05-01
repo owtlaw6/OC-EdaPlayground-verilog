@@ -1,0 +1,197 @@
+F205
+mil r2 05
+15
+
+1111 - D - 00 - I
+loads 05 into R2
+
+000 no op
+001 halt
+002 set zero flag
+003 clr zero flag
+010 set carry flag
+011 clr carry flag
+012 clr window pointer
+
+1-D-S move register
+2-D-S load addressed
+3-D-S store addressed
+4-D-S input from port 
+5-D-S output from port
+6-D-S AND Registers
+7-D-S OR Registers
+8-D-S NOT Register
+9-D-S shift left
+A-D-S shift right
+B-D-S Add registers
+C-D-S substract registers
+D-D-S multiply registers 
+E-D-S compare
+
+F-D-0-I move immediate low
+F-D-1-I move immediate high
+F-D-2-I save PC
+F-D-3-I jump addressed
+
+013-I jump relative
+020-I branch if zero
+021-I branch if carry
+022-I add window pointer
+
+
+
+
+
+
+
+
+
+0000
+mil
+r0
+00
+0001
+mih
+r0
+03
+0032
+lda
+r1
+r0
+0003
+awp 5
+0004
+mil
+r0
+01
+0005
+mih
+r0
+00
+0006
+cwp
+0006
+add
+r1
+r0
+0007
+mvr
+r2
+r1
+0008
+awp
+2
+0009
+sub 
+r0
+r3
+0009
+cwp
+000A
+mvr 
+r3
+r0
+000A
+nop
+000B
+cwp
+000B
+cmp
+r3
+r2
+000C
+brz
+19
+000D
+awp
+3
+000E
+add
+r0
+r2
+000E
+mvr
+r1
+r0
+000F
+cwp
+0010
+awp
+1
+0011
+cmp
+r3
+r0
+0012
+brz
+10
+0013
+awp
+2
+0014
+lda
+r3
+r0
+0015
+awp
+1
+0016
+add
+r0
+r1
+0016
+lda
+r3
+r0
+0017
+cmp
+r2
+r3
+0018
+brc
+07
+0019
+lda
+r1
+r0
+0019
+sta
+r0
+r2
+001A
+cwp
+001B
+awp
+3
+001C
+sta
+r0
+r2
+001D
+mil
+r2
+01
+001E
+mih 
+r2
+00
+001F
+cwp
+0020
+awp
+5
+0021
+jpa
+r0
+0E
+0022
+cwp
+0023
+awp 
+5
+0024
+jpa
+r0
+0A
+0025
+hlt
